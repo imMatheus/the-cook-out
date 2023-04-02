@@ -26,7 +26,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	app.Listen(":3000")
+	app.Listen(":4000")
 	log.Println("Server is up and running")
 }
 
@@ -36,7 +36,7 @@ func connectSql() (*sql.DB, error) {
 		return nil, fmt.Errorf("failed to connect: %v", err)
 	}
 
-	defer db.Close()
+	// defer db.Close()
 
 	if err := db.Ping(); err != nil {
 		return nil, fmt.Errorf("failed to ping: %v", err)
