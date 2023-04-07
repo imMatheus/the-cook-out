@@ -29,7 +29,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	app.Listen(":4000")
+	err = app.Listen(":4000")
+	if err != nil {
+		log.Fatalf("Failed to start listening: %v", err)
+		os.Exit(1)
+	}
+
 	log.Println("Server is up and running")
 }
 
