@@ -29,7 +29,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	err = app.Listen(":4000")
+	err = app.Listen(":4002")
 	if err != nil {
 		log.Fatalf("Failed to start listening: %v", err)
 		os.Exit(1)
@@ -43,8 +43,6 @@ func connectSql() (*sql.DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect: %v", err)
 	}
-
-	// defer db.Close()
 
 	if err := db.Ping(); err != nil {
 		return nil, fmt.Errorf("failed to ping: %v", err)
@@ -62,12 +60,18 @@ func buildServer() (*fiber.App, error) {
 		return nil, err
 	}
 
+	// defer db.Close()
+
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
 	}))
 	app.Use(logger.New())
+
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("The cook out")
+	})
 
 	app.Get("/health", func(c *fiber.Ctx) error {
 		return c.SendString("Healthy!")
