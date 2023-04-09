@@ -23,3 +23,9 @@ func (t *AuthController) signUp(c *fiber.Ctx) error {
 
 	return c.JSON(posts)
 }
+
+func (t *AuthController) me(c *fiber.Ctx) error {
+	// get all posts
+
+	return c.JSON("you")
+}
